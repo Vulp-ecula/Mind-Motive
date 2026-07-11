@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mind &amp; Motive — a profiling trainer</title>
+  <meta name="description" content="Learn criminal profiling by working eight gritty cases. Read the scene, build the profile, name the offender." />
+  <style>
+    html, body { margin: 0; padding: 0; background: #0C0A08; }
+    #root { min-height: 100vh; }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  <script src="react.min.js"></script>
+  <script src="react-dom.min.js"></script>
+  <script src="game.js"></script>
+  <script>
+    const root = ReactDOM.createRoot(document.getElementById("root"));
+    root.render(React.createElement(window.MindMotive));
+  </script>
+</body>
+</html>
