@@ -138,13 +138,13 @@ const C = [{
   calls: [{
     q: "Low-risk victim, killed anyway. So the killer…",
     opts: [{
-      t: "Was a stranger",
-      ok: false,
-      hit: "Strangers don't get invited to tea. Access was the whole crime."
-    }, {
       t: "Had trusted access",
       ok: true,
       hit: "Right — a low-risk victim relocates the risk onto someone she trusted."
+    }, {
+      t: "Was a stranger",
+      ok: false,
+      hit: "Strangers don't get invited to tea. Access was the whole crime."
     }, {
       t: "Chose her at random",
       ok: false,
@@ -157,13 +157,13 @@ const C = [{
       ok: false,
       hit: "The poison is MO. Sharing it is extra — that's the tell."
     }, {
-      t: "Signature — a private need",
-      ok: true,
-      hit: "Yes — behavior beyond the kill: a need to sit safe as she died."
-    }, {
       t: "An accident",
       ok: false,
       hit: "No — the antidote vial proves it was planned."
+    }, {
+      t: "Signature — a private need",
+      ok: true,
+      hit: "Yes — behavior beyond the kill: a need to sit safe as she died."
     }]
   }, {
     q: "Drinking safely means the killer had…",
@@ -188,13 +188,13 @@ const C = [{
       ok: false,
       hit: "No — panic doesn't rinse and reshelve. This is composure."
     }, {
-      t: "An organized mind that plans and covers",
-      ok: true,
-      hit: "Yes — the cleanup is as controlled as the poisoning. Organized, not frantic."
-    }, {
       t: "Someone else tidied later",
       ok: false,
       hit: "No — the vial ties to the killing itself, not a bystander."
+    }, {
+      t: "An organized mind that plans and covers",
+      ok: true,
+      hit: "Yes — the cleanup is as controlled as the poisoning. Organized, not frantic."
     }]
   },
   profile: "Composed. Trusted. Knew an antidote.",
@@ -250,13 +250,13 @@ const C = [{
   calls: [{
     q: "Faking a suicide over a murder means the killer was…",
     opts: [{
-      t: "Panicked, random",
-      ok: false,
-      hit: "Panic can't stage. This took time and nerve."
-    }, {
       t: "Calm, connected, hiding something",
       ok: true,
       hit: "Yes — staging betrays exactly what they need unseen."
+    }, {
+      t: "Panicked, random",
+      ok: false,
+      hit: "Panic can't stage. This took time and nerve."
     }, {
       t: "A stranger",
       ok: false,
@@ -284,25 +284,25 @@ const C = [{
       ok: false,
       hit: "Dislike is cheap. Look for existential stakes."
     }, {
-      t: "Faces ruin if the case reopens",
-      ok: true,
-      hit: "Yes — reconstruct motive from consequence, not grudges."
-    }, {
       t: "A passing burglar",
       ok: false,
       hit: "No — nothing was stolen; this was about the case."
+    }, {
+      t: "Faces ruin if the case reopens",
+      ok: true,
+      hit: "Yes — reconstruct motive from consequence, not grudges."
     }]
   }],
   deepdive: {
     q: "The forged note's pen pressure is unnaturally even. Why does that matter?",
     opts: [{
-      t: "It proves he was calm",
-      ok: false,
-      hit: "Close, but the point is sharper — a despairing man's hand shakes."
-    }, {
       t: "A real suicide note wavers; this was copied cold",
       ok: true,
       hit: "Yes — the steadiness betrays a forger imitating, not a man breaking."
+    }, {
+      t: "It proves he was calm",
+      ok: false,
+      hit: "Close, but the point is sharper — a despairing man's hand shakes."
     }, {
       t: "It means nothing",
       ok: false,
@@ -382,15 +382,15 @@ const C = [{
     opts: [{
       t: "Profit",
       ok: false,
-      hit: "No payout existed — profit's off the table."
+      hit: "No — he left the money and posed the body."
     }, {
-      t: "Not money — thrill or mission",
+      t: "A mission",
       ok: true,
-      hit: "Right — rule out profit and the excitement type rises."
+      hit: "Yes — the mission type kills to punish a 'sinner.'"
     }, {
-      t: "Pure accident",
+      t: "Thrill alone",
       ok: false,
-      hit: "No — the poured trail says otherwise."
+      hit: "The coherent moral symbol says mission, not thrill."
     }]
   }, {
     q: "The watcher who lingered fits because…",
@@ -399,13 +399,13 @@ const C = [{
       ok: false,
       hit: "Not with a false name, staying after the crowd goes."
     }, {
-      t: "Excitement-setters return to watch",
-      ok: true,
-      hit: "Yes — they come back to witness their own work."
-    }, {
       t: "He's a firefighter",
       ok: false,
       hit: "No — the false name gives him away."
+    }, {
+      t: "Excitement-setters return to watch",
+      ok: true,
+      hit: "Yes — they come back to witness their own work."
     }]
   }],
   deepdive: {
@@ -477,17 +477,17 @@ const C = [{
   calls: [{
     q: "Four identical killings means…",
     opts: [{
-      t: "Four killers",
-      ok: false,
-      hit: "No — identical method is one hand."
-    }, {
-      t: "One offender (linkage)",
-      ok: true,
-      hit: "Yes — consistency links the series."
-    }, {
       t: "Coincidence",
       ok: false,
-      hit: "An identical mark four times isn't chance."
+      hit: "No — an identical ritual thrice is a signature."
+    }, {
+      t: "One offender's signature",
+      ok: true,
+      hit: "Yes — it fingerprints him across places."
+    }, {
+      t: "Three copycats",
+      ok: false,
+      hit: "The same exact hand says one person."
     }]
   }, {
     q: "A ring of sites with a clean centre is a…",
@@ -496,13 +496,13 @@ const C = [{
       ok: false,
       hit: "No — commuters cluster away from home."
     }, {
-      t: "Marauder (base inside)",
-      ok: true,
-      hit: "Yes — the hollow centre is the comfort zone he won't foul."
-    }, {
       t: "Random pattern",
       ok: false,
       hit: "A clean centre is the opposite of random."
+    }, {
+      t: "Marauder (base inside)",
+      ok: true,
+      hit: "Yes — the hollow centre is the comfort zone he won't foul."
     }]
   }, {
     q: "So look for him…",
@@ -527,13 +527,13 @@ const C = [{
       ok: false,
       hit: "No — the empty centre is deliberate, not incidental."
     }, {
-      t: "It's his comfort zone — too close to home to foul",
-      ok: true,
-      hit: "Yes — marauders won't offend on their own doorstep. The gap is the tell."
-    }, {
       t: "It's random",
       ok: false,
       hit: "A clean centre inside a ring of bodies is the opposite of random."
+    }, {
+      t: "It's his comfort zone — too close to home to foul",
+      ok: true,
+      hit: "Yes — marauders won't offend on their own doorstep. The gap is the tell."
     }]
   },
   profile: "Lives at the centre. Kills outward, on foot.",
@@ -589,13 +589,13 @@ const C = [{
   calls: [{
     q: "Force far past death signals…",
     opts: [{
-      t: "A cold professional",
-      ok: false,
-      hit: "No — pros are efficient. Overkill is emotional."
-    }, {
       t: "Rage, a personal grudge",
       ok: true,
       hit: "Yes — strangers rarely overkill. He knew the victim."
+    }, {
+      t: "A cold professional",
+      ok: false,
+      hit: "No — pros are efficient. Overkill is emotional."
     }, {
       t: "Nothing",
       ok: false,
@@ -623,25 +623,25 @@ const C = [{
       ok: false,
       hit: "No — one person can hold both."
     }, {
-      t: "Personal rage in an orderly mind",
-      ok: true,
-      hit: "Yes — the 'mixed' scene: he snapped, then set it right."
-    }, {
       t: "It can't be read",
       ok: false,
       hit: "The contradiction is the profile."
+    }, {
+      t: "Personal rage in an orderly mind",
+      ok: true,
+      hit: "Yes — the 'mixed' scene: he snapped, then set it right."
     }]
   }],
   deepdive: {
     q: "Overkill AND a neatly re-hung weapon. How do you hold both?",
     opts: [{
-      t: "Two different attackers",
-      ok: false,
-      hit: "No — one person can rage, then compulsively set things right."
-    }, {
       t: "Rage in the act, compulsion in the aftermath — one mind",
       ok: true,
       hit: "Yes — the 'mixed' scene: he lost control, then his nature reasserted."
+    }, {
+      t: "Two different attackers",
+      ok: false,
+      hit: "No — one person can rage, then compulsively set things right."
     }, {
       t: "The tidiness is a coincidence",
       ok: false,
@@ -716,13 +716,13 @@ const C = [{
   }, {
     q: "A chosen, underlined passage is him…",
     opts: [{
-      t: "Hiding evidence",
-      ok: false,
-      hit: "No — underlining adds a message, not cover."
-    }, {
       t: "Sending a message",
       ok: true,
       hit: "Yes — a communicative signature. Read the theme."
+    }, {
+      t: "Hiding evidence",
+      ok: false,
+      hit: "No — underlining adds a message, not cover."
     }, {
       t: "Killing time",
       ok: false,
@@ -735,13 +735,13 @@ const C = [{
       ok: false,
       hit: "No — bolder and faster is rising need."
     }, {
-      t: "Escalating",
-      ok: true,
-      hit: "Yes — escalation forecasts a faster next strike."
-    }, {
       t: "Done",
       ok: false,
       hit: "The boldest was the latest — he's not done."
+    }, {
+      t: "Escalating",
+      ok: true,
+      hit: "Yes — escalation forecasts a faster next strike."
     }]
   }],
   deepdive: {
@@ -813,13 +813,13 @@ const C = [{
   calls: [{
     q: "Posing a body (vs. hiding it) means the killer…",
     opts: [{
-      t: "Wants to mislead police",
-      ok: false,
-      hit: "That's staging. Posing conceals nothing — it declares."
-    }, {
       t: "Is sending a message",
       ok: true,
       hit: "Yes — the pose is speech. Read its content."
+    }, {
+      t: "Wants to mislead police",
+      ok: false,
+      hit: "That's staging. Posing conceals nothing — it declares."
     }, {
       t: "Was interrupted",
       ok: false,
@@ -832,13 +832,13 @@ const C = [{
       ok: false,
       hit: "No — the symbol names his 'sin' exactly."
     }, {
-      t: "A judgment passed",
-      ok: true,
-      hit: "Yes — the killer casts himself as justice."
-    }, {
       t: "A robbery clue",
       ok: false,
       hit: "No — the purse is untouched."
+    }, {
+      t: "A judgment passed",
+      ok: true,
+      hit: "Yes — the killer casts himself as justice."
     }]
   }, {
     q: "A killer who judges and cleanses is driven by…",
@@ -863,13 +863,13 @@ const C = [{
       ok: false,
       hit: "That's staging. This conceals nothing — it announces."
     }, {
-      t: "A message: the sin named, judgment passed",
-      ok: true,
-      hit: "Yes — the pose is speech. He's declaring why the man deserved it."
-    }, {
       t: "Random cruelty",
       ok: false,
       hit: "No — the symbol matches the 'sin' too precisely to be random."
+    }, {
+      t: "A message: the sin named, judgment passed",
+      ok: true,
+      hit: "Yes — the pose is speech. He's declaring why the man deserved it."
     }]
   },
   profile: "Believes he's justice. Punishing a 'sinner.' No interest in money.",
@@ -925,13 +925,13 @@ const C = [{
   calls: [{
     q: "A thin scene means the profile should be…",
     opts: [{
-      t: "Confident — it'll name him",
-      ok: false,
-      hit: "That's the myth. Profiling narrows; it doesn't identify."
-    }, {
       t: "Held loosely — defer to evidence",
       ok: true,
       hit: "Yes — a broad scene supports only a weak profile."
+    }, {
+      t: "Confident — it'll name him",
+      ok: false,
+      hit: "That's the myth. Profiling narrows; it doesn't identify."
     }, {
       t: "Thrown out",
       ok: false,
@@ -959,25 +959,25 @@ const C = [{
       ok: false,
       hit: "A profile that fits two can't rank them."
     }, {
-      t: "Hard evidence — the boot-print",
-      ok: true,
-      hit: "Yes — only individuating evidence breaks the tie."
-    }, {
       t: "A gut call",
       ok: false,
       hit: "Gut is where the bias lives."
+    }, {
+      t: "Hard evidence — the boot-print",
+      ok: true,
+      hit: "Yes — only individuating evidence breaks the tie."
     }]
   }],
   deepdive: {
     q: "You have a boot-print from the mud. How should a profiler use it?",
     opts: [{
-      t: "Assume it fits the rough, likely suspect",
-      ok: false,
-      hit: "That's the trap — fitting evidence to your hunch instead of testing it."
-    }, {
       t: "Measure it against EACH man, let it decide",
       ok: true,
       hit: "Yes — the print is individuating evidence. Match it; don't assume it."
+    }, {
+      t: "Assume it fits the rough, likely suspect",
+      ok: false,
+      hit: "That's the trap — fitting evidence to your hunch instead of testing it."
     }, {
       t: "Ignore it — profiles matter more",
       ok: false,
