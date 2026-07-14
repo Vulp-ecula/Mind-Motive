@@ -1451,7 +1451,7 @@ function makeVoice() {
       const u = new SpeechSynthesisUtterance(text);
       if (v) u.voice = v;
       u.pitch = 0.4; // floor-low: gravel
-      u.rate = 0.92; // deliberate but not sluggish
+      u.rate = 1.0; // natural cadence; the low pitch alone carries the weight
       u.volume = 1.0;
       synth.speak(u);
       // Chrome sometimes pauses the queue; nudge it
@@ -2047,7 +2047,7 @@ function MindMotive() {
     onClick: () => {
       const n = !voiceOn;
       setVoiceOn(n);
-      if (n && V && V.ok) V.speak("Voss. Let's work.");
+      if (!n && V) V.stop();
     },
     title: "Inspector Voss reads his lines aloud",
     style: {
