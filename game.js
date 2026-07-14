@@ -1411,21 +1411,36 @@ function makeAudio() {
 function makeVoice() {
   const synth = typeof window !== "undefined" && window.speechSynthesis;
   let chosen = null;
-  // preference order: known-deep male voices across platforms
-  const PREF = ["daniel", "arthur", "lee", "rishi", "google uk english male", "microsoft guy", "microsoft david", "fred", "oliver", "aaron"];
+  // Known MALE voices across desktop AND mobile (iOS/Android/Samsung/Google).
+  // NOTE: never put bare "man"/"male" here — "saMANtha" and "feMALE" match them.
+  const MALE = ["daniel", "arthur", "rishi", "oliver", "fred", "aaron", "rocko", "gordon", "alex", "google uk english male", "microsoft guy", "microsoft david", "microsoft mark", "microsoft george", "(male)", " male", "_male", "-male"];
+  // Known FEMALE voices to REJECT even if they'd otherwise win a fallback.
+  const FEMALE = ["samantha", "victoria", "karen", "moira", "tessa", "fiona", "susan", "allison", "ava", "nicky", "google uk english female", "google us english", "microsoft zira", "microsoft hazel", "microsoft susan", "female", "woman", "catherine", "serena", "kate", "martha", "amelie", "anna", "google español"];
+  const isFemale = n => FEMALE.some(f => n.includes(f));
+  // female check wins: a name that looks female is never treated as male
+  const isMale = n => !isFemale(n) && MALE.some(m => n.includes(m));
   function pick() {
     if (!synth) return null;
     const voices = synth.getVoices() || [];
     if (!voices.length) return null;
-    // 1) explicit preferred names
-    for (const p of PREF) {
-      const v = voices.find(x => x.name.toLowerCase().includes(p));
-      if (v) return v;
-    }
-    // 2) any english male-ish; else any english; else first
-    const en = voices.filter(x => /en(-|_|$)/i.test(x.lang));
-    const male = en.find(x => /male|daniel|arthur|guy|david|fred|lee/i.test(x.name));
-    return male || en[0] || voices[0];
+    const named = voices.map(v => ({
+      v,
+      n: (v.name || "").toLowerCase(),
+      lang: (v.lang || "").toLowerCase()
+    }));
+    // 1) explicit male, prefer English
+    const maleEn = named.find(x => isMale(x.n) && /^en/.test(x.lang));
+    if (maleEn) return maleEn.v;
+    const maleAny = named.find(x => isMale(x.n));
+    if (maleAny) return maleAny.v;
+    // 2) English voice that is NOT known-female (better a neutral than a clear woman)
+    const enNotFemale = named.find(x => /^en/.test(x.lang) && !isFemale(x.n));
+    if (enNotFemale) return enNotFemale.v;
+    // 3) any voice not known-female
+    const notFemale = named.find(x => !isFemale(x.n));
+    if (notFemale) return notFemale.v;
+    // 4) last resort
+    return named[0].v;
   }
   function ensure() {
     if (!chosen) chosen = pick();
@@ -1450,7 +1465,7 @@ function makeVoice() {
       synth.cancel();
       const u = new SpeechSynthesisUtterance(text);
       if (v) u.voice = v;
-      u.pitch = 0.85; // deep but natural — extreme lows distort on phones that lack deep voices
+      u.pitch = 0.8; // deep but natural — pairs with an actual male voice
       u.rate = 1.0; // natural cadence
       u.volume = 1.0;
       synth.speak(u);
@@ -1466,6 +1481,21 @@ function makeVoice() {
     stop: () => {
       try {
         synth && synth.cancel();
+      } catch (e) {}
+    },
+    list: () => {
+      try {
+        return (synth.getVoices() || []).filter(x => /^en/i.test(x.lang || ""));
+      } catch (e) {
+        return [];
+      }
+    },
+    current: () => ensure(),
+    setVoice: name => {
+      try {
+        const vs = synth.getVoices() || [];
+        const f = vs.find(x => x.name === name);
+        if (f) chosen = f;
       } catch (e) {}
     }
   };
@@ -1582,6 +1612,9 @@ function MindMotive() {
   const V = voiceRef.current;
   const [sound, setSound] = useState(false);
   const [voiceOn, setVoiceOn] = useState(true);
+  const [showVoicePick, setShowVoicePick] = useState(false);
+  const [voiceList, setVoiceList] = useState([]);
+  const [voiceName, setVoiceName] = useState("");
   const beep = n => {
     if (sound && S[n]) {
       S.resume();
@@ -2060,7 +2093,26 @@ function MindMotive() {
       fontSize: 10,
       cursor: "pointer"
     }
-  }, voiceOn ? "🔊 VOSS" : "🔇 VOSS"), /*#__PURE__*/React.createElement("button", {
+  }, voiceOn ? "🔊 VOSS" : "🔇 VOSS"), voiceOn && V && V.ok && /*#__PURE__*/React.createElement("button", {
+    onClick: () => {
+      const vs = V.list();
+      setVoiceList(vs);
+      const cur = V.current();
+      setVoiceName(cur ? cur.name : "");
+      setShowVoicePick(s => !s);
+    },
+    title: "Choose Voss's voice (device voices vary)",
+    style: {
+      background: "transparent",
+      border: `1px solid ${T.manila}44`,
+      color: T.paperDim,
+      borderRadius: 6,
+      padding: "5px 8px",
+      fontFamily: mono,
+      fontSize: 10,
+      cursor: "pointer"
+    }
+  }, "⚙"), /*#__PURE__*/React.createElement("button", {
     onClick: () => {
       const n = !sound;
       setSound(n);
@@ -2079,7 +2131,75 @@ function MindMotive() {
       fontSize: 10,
       cursor: "pointer"
     }
-  }, sound ? "♪ ON" : "♪ OFF"))), /*#__PURE__*/React.createElement(XpBar, null), DEV_MODE && !done && /*#__PURE__*/React.createElement("div", {
+  }, sound ? "♪ ON" : "♪ OFF"))), showVoicePick && /*#__PURE__*/React.createElement("div", {
+    style: {
+      marginBottom: 14,
+      padding: "12px 14px",
+      background: T.ink2,
+      border: `1px solid ${T.ember}55`,
+      borderRadius: 10
+    }
+  }, /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontFamily: mono,
+      fontSize: 9.5,
+      letterSpacing: 1.5,
+      color: T.ember,
+      marginBottom: 4
+    }
+  }, "VOSS · VOICE"), /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 12,
+      color: T.paperDim,
+      marginBottom: 10,
+      lineHeight: 1.45
+    }
+  }, "Your device decides which voices exist, and some default to a woman's. Pick one that suits him — tap to hear it."), voiceList.length === 0 ? /*#__PURE__*/React.createElement("div", {
+    style: {
+      fontSize: 12,
+      color: T.paperDim,
+      fontStyle: "italic"
+    }
+  }, "No voices reported by this browser.") : /*#__PURE__*/React.createElement("div", {
+    style: {
+      display: "flex",
+      flexDirection: "column",
+      gap: 5,
+      maxHeight: 190,
+      overflowY: "auto"
+    }
+  }, voiceList.map(v => /*#__PURE__*/React.createElement("button", {
+    key: v.name,
+    onClick: () => {
+      V.setVoice(v.name);
+      setVoiceName(v.name);
+      V.speak("Voss. Read the room, Inspector.");
+    },
+    style: {
+      textAlign: "left",
+      background: voiceName === v.name ? T.ember + "22" : "transparent",
+      border: `1px solid ${voiceName === v.name ? T.ember : T.manila + "33"}`,
+      color: voiceName === v.name ? T.ember : T.paper,
+      borderRadius: 6,
+      padding: "7px 9px",
+      fontFamily: mono,
+      fontSize: 11,
+      cursor: "pointer"
+    }
+  }, voiceName === v.name ? "▸ " : "  ", v.name, " ", /*#__PURE__*/React.createElement("span", {
+    style: {
+      color: T.paperDim
+    }
+  }, "· ", v.lang)))), /*#__PURE__*/React.createElement("button", {
+    onClick: () => setShowVoicePick(false),
+    style: {
+      ...pill(T.steel, T.paper),
+      marginTop: 10,
+      width: "100%",
+      padding: "7px 0",
+      fontSize: 11
+    }
+  }, "Done")), /*#__PURE__*/React.createElement(XpBar, null), DEV_MODE && !done && /*#__PURE__*/React.createElement("div", {
     style: {
       display: "flex",
       flexWrap: "wrap",
