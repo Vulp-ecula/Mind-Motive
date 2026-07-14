@@ -1450,8 +1450,8 @@ function makeVoice() {
       synth.cancel();
       const u = new SpeechSynthesisUtterance(text);
       if (v) u.voice = v;
-      u.pitch = 0.4; // floor-low: gravel
-      u.rate = 1.0; // natural cadence; the low pitch alone carries the weight
+      u.pitch = 0.85; // deep but natural — extreme lows distort on phones that lack deep voices
+      u.rate = 1.0; // natural cadence
       u.volume = 1.0;
       synth.speak(u);
       // Chrome sometimes pauses the queue; nudge it
