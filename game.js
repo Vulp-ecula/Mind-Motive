@@ -1451,7 +1451,7 @@ function makeVoice() {
       const u = new SpeechSynthesisUtterance(text);
       if (v) u.voice = v;
       u.pitch = 0.4; // floor-low: gravel
-      u.rate = 0.82; // slow, deliberate
+      u.rate = 0.92; // deliberate but not sluggish
       u.volume = 1.0;
       synth.speak(u);
       // Chrome sometimes pauses the queue; nudge it
